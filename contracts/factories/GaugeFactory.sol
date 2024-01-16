@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19 || 0.8.20;
 
 import {IGaugeFactory} from "../interfaces/factories/IGaugeFactory.sol";
 import {Gauge} from "../gauges/Gauge.sol";

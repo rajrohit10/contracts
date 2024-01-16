@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19 || 0.8.20;
 
 import {SinkManagerFacilitator} from "./SinkManagerFacilitator.sol";
 import {ISinkManager} from "../../interfaces/ISinkManager.sol";
@@ -12,10 +12,10 @@ import {IVotingEscrowV1} from "../../interfaces/v1/IVotingEscrowV1.sol";
 import {IRewardsDistributorV1} from "../../interfaces/v1/IRewardsDistributorV1.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
-import {ERC2771Context} from "@openzeppelin/contracts/metatx/ERC2771Context.sol";
+import {ERC2771Context} from "lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721Holder} from "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "lib/openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {VelodromeTimeLibrary} from "../../libraries/VelodromeTimeLibrary.sol";
 import {SafeCastLibrary} from "../../libraries/SafeCastLibrary.sol";
@@ -23,7 +23,7 @@ import {SafeCastLibrary} from "../../libraries/SafeCastLibrary.sol";
 /// @title Velodrome Sink Manager
 /// @notice Absorb v1 Velo and converting v1 veNFTs and VELO into v2
 /// @author velodrome.finance, @pegahcarter
-contract SinkManager is ISinkManager, ERC2771Context, Ownable, ERC721Holder, ReentrancyGuard {
+abstract contract SinkManager is ISinkManager, ERC2771Context, Ownable, ERC721Holder, ReentrancyGuard {
     using SafeCastLibrary for int128;
     uint256 internal constant MAXTIME = 4 * 365 days;
     uint256 internal constant WEEK = 1 weeks;

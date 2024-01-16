@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {IFactoryRegistry} from "../interfaces/factories/IFactoryRegistry.sol";
@@ -8,7 +8,7 @@ import {EnumerableSet} from "@openzeppelin/contracts/utils/structs/EnumerableSet
 /// @title Velodrome V2 Factory Registry
 /// @author Carter Carlson (@pegahcarter)
 /// @notice Velodrome V2 Factory Registry to swap and create gauges
-contract FactoryRegistry is IFactoryRegistry, Ownable {
+abstract contract FactoryRegistry is IFactoryRegistry, Ownable {
     using EnumerableSet for EnumerableSet.AddressSet;
 
     /// @dev factory to create free and locked rewards for a managed veNFT

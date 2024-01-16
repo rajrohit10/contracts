@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19;
 
 import {IVelo} from "../../interfaces/IVelo.sol";
 import {IPool} from "../../interfaces/IPool.sol";
 import {ISinkManager} from "../../interfaces/ISinkManager.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "lib/openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
 
 /// @notice Fake pool used which enables routers to swap v1 VELO to v2 VELO
 /// @dev Used in voter v2

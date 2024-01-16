@@ -1,0 +1,25 @@
+{
+  "_format": "hh-zksolc-artifact-1",
+  "contractName": "IEpochGovernor",
+  "sourceName": "contracts/interfaces/IEpochGovernor.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "result",
+      "outputs": [
+        {
+          "internalType": "enum IEpochGovernor.ProposalState",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "factoryDeps": {}
+}

@@ -4,8 +4,8 @@
 pragma solidity ^0.8.0;
 
 import {VetoGovernorVotes} from "./VetoGovernorVotes.sol";
-import {Checkpoints} from "@openzeppelin/contracts/utils/Checkpoints.sol";
-import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {Checkpoints} from "lib/openzeppelin-contracts/contracts/utils/Checkpoints.sol";
+import {SafeCast} from "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol";
 
 /**
  * @dev OpenZeppelin's GovernorVotesQuorumFraction using VetoGovernor

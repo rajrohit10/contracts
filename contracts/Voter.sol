@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
+pragma solidity ^0.8.19 || 0.8.20;
 
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IVotingRewardsFactory} from "./interfaces/factories/IVotingRewardsFactory.sol";
@@ -15,7 +15,7 @@ import {IFactoryRegistry} from "./interfaces/factories/IFactoryRegistry.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {ERC2771Context} from "@openzeppelin/contracts/metatx/ERC2771Context.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "lib/openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
 import {VelodromeTimeLibrary} from "./libraries/VelodromeTimeLibrary.sol";
 
 /// @title Velodrome V2 Voter
@@ -497,9 +497,9 @@ contract Voter is IVoter, ERC2771Context, ReentrancyGuard {
         uint256 _claimable = claimable[_gauge];
         if (_claimable > IGauge(_gauge).left() && _claimable > DURATION) {
             claimable[_gauge] = 0;
-            IERC20(rewardToken).safeApprove(_gauge, _claimable);
+            IERC20(rewardToken).approve(_gauge, _claimable);
             IGauge(_gauge).notifyRewardAmount(_claimable);
-            IERC20(rewardToken).safeApprove(_gauge, 0);
+            IERC20(rewardToken).approve(_gauge, 0);
             emit DistributeReward(_msgSender(), _gauge, _claimable);
         }
     }
