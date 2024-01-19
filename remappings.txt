@@ -1,6 +1,6 @@
 ds-test/=lib/ds-test/src/
 forge-std/=lib/forge-std/src/
-@openzeppelin/=lib/openzeppelin-contracts/
+@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts
 @opengsn/=lib/gsn/packages/
 @uniswap/v3-core/=lib/v3-core/
 utils/=test/utils/

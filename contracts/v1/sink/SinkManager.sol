@@ -23,7 +23,7 @@ import {SafeCastLibrary} from "../../libraries/SafeCastLibrary.sol";
 /// @title Velodrome Sink Manager
 /// @notice Absorb v1 Velo and converting v1 veNFTs and VELO into v2
 /// @author velodrome.finance, @pegahcarter
-abstract contract SinkManager is ISinkManager, ERC2771Context, Ownable, ERC721Holder, ReentrancyGuard {
+contract SinkManager is ISinkManager, ERC2771Context, Ownable, ERC721Holder, ReentrancyGuard {
     using SafeCastLibrary for int128;
     uint256 internal constant MAXTIME = 4 * 365 days;
     uint256 internal constant WEEK = 1 weeks;
@@ -73,7 +73,7 @@ abstract contract SinkManager is ISinkManager, ERC2771Context, Ownable, ERC721Ho
         address _ve,
         address _veV2,
         address _rewardsDistributor
-    ) ERC2771Context(_forwarder) {
+    ) ERC2771Context(_forwarder) Ownable(msg.sender) {
         sinkDrain = _sinkDrain;
         facilitatorImplementation = _facilitatorImplementation;
         voter = IVoterV1(_voter);

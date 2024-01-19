@@ -57,14 +57,14 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   // Verify contract programmatically
   //
   // Contract MUST be fully qualified name (e.g. path/sourceName:contractName)
-  const contractFullyQualifedName = "contracts/v1/sink/SinkDrain.sol:SinkDrain";
-  const verificationId = await hre.run("verify:verify", {
-    address: contractAddress,
-    contract: contractFullyQualifedName,
-    constructorArguments: [],
-    bytecode: artifact.bytecode,
-  });
-  console.log(
-    `${contractFullyQualifedName} verified! VerificationId: ${verificationId}`,
-  );
+  // const contractFullyQualifedName = "contracts/v1/sink/SinkDrain.sol:SinkDrain";
+  // const verificationId = await hre.run("verify:verify", {
+  //   address: contractAddress,
+  //   contract: contractFullyQualifedName,
+  //   constructorArguments: [],
+  //   bytecode: artifact.bytecode,
+  // });
+  // console.log(
+  //   `${contractFullyQualifedName} verified! VerificationId: ${verificationId}`,
+  // );
 }

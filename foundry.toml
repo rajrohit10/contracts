@@ -3,6 +3,7 @@ src = 'contracts'
 out = 'out'
 
 fs_permissions = [{ access = "read-write", path = "./"}]
+remappings = ['@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts']
 
 [rpc_endpoints]
 goerli = "${GOERLI_RPC_URL}"

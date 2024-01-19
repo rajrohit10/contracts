@@ -6,8 +6,8 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @notice Fake pool used to create the gauge which directs all emissions of velo v1 to the SinkManager
 /// @dev Used in voter v1
-abstract contract SinkDrain is ERC20, Ownable {
-    constructor() ERC20("SinkDrain", "DRAIN"){
+contract SinkDrain is ERC20, Ownable {
+    constructor()Ownable(msg.sender) ERC20("SinkDrain", "DRAIN"){
     }
 
     function mint(address _sinkManager) external onlyOwner {

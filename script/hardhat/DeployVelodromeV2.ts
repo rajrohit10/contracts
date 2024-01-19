@@ -226,6 +226,7 @@ async function main() {
   await sinkManager.setupSinkDrain(gaugeSinkDrainAddr, { gasLimit: 5000000 });
   await sinkManager.renounceOwnership({ gasLimit: 5000000 });
 
+  //v2 area
   await escrow.setTeam(jsonConstants.team);
   await poolFactory.setPauser(jsonConstants.team);
   await voter.setEmergencyCouncil(jsonConstants.team);
