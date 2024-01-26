@@ -22,6 +22,7 @@ interface VelodromeV2Output {
     voter: string;
     votingEscrow: string;
     votingRewardsFactory: string;
+    pool: string;
     }
 
 // load wallet private key from env file
@@ -32,7 +33,7 @@ if (!PRIVATE_KEY)
 
 // An example of a deploy script that will deploy and call a simple contract.
 export default async function (hre: HardhatRuntimeEnvironment) {
-  console.log(`Running deploy script for the  contract`);
+  console.log(`Running deploy script for the following contracts`);
 
   // Initialize the wallet.
   const wallet = new Wallet(PRIVATE_KEY);
@@ -50,7 +51,18 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   );
   const contractAddress = VELO.address;
   console.log(`${veloArtifact.contractName} was deployed to ${contractAddress}`);
-//   jsonConstants.whitelistTokens.push(VELO.address);
+  jsonConstants.whitelistTokens.push(VELO.address);
+  const contractFullyQualifedName =
+  "contracts/Velo.sol:Velo";
+const verificationId = await hre.run("verify:verify", {
+  address: contractAddress,
+  contract: contractFullyQualifedName,
+  constructorArguments: [],
+  bytecode: veloArtifact.bytecode,
+});
+console.log(
+  `${contractFullyQualifedName} verified! VerificationId: ${verificationId}`,
+);
 
   //Deploying contract 2  - POOL
   const poolArtifact = await deployer.loadArtifact("Pool");
@@ -64,6 +76,17 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   );
   const poolcontractAddress = pool.address;
   console.log(`${poolArtifact.contractName} was deployed to ${poolcontractAddress}`);
+  //Verify contract programmatically
+  const poolcontractFullyQualifedName ="contracts/Pool.sol:Pool";
+  const poolverificationId = await hre.run("verify:verify", {
+    address: poolcontractAddress,
+    contract: poolcontractFullyQualifedName,
+    constructorArguments: [],
+    bytecode: poolArtifact.bytecode,
+  });
+  console.log(
+    `${poolcontractFullyQualifedName} verified! VerificationId: ${poolverificationId}`, 
+  );
 
    //Deploying contract 3  - POOL FACTORY
    const poolFactoryArtifact = await deployer.loadArtifact("PoolFactory");
@@ -79,6 +102,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
    console.log(`${poolFactoryArtifact.contractName} was deployed to ${poolFactorycontractAddress}`);
    await poolFactory.setFee(true, 1);
    await poolFactory.setFee(false, 1);
+   const poolFactorycontractFullyQualifedName ="contracts/factories/PoolFactory.sol:PoolFactory";
+    const poolFactoryverificationId = await hre.run("verify:verify", {
+      address: poolFactorycontractAddress,
+      contract: poolFactorycontractFullyQualifedName,
+      constructorArguments: [poolcontractAddress],
+      bytecode: poolFactoryArtifact.bytecode,
+    });
+    console.log(
+      `${poolFactorycontractFullyQualifedName} verified! VerificationId: ${poolFactoryverificationId}`, 
+    );
 
     //Deploying contract 4  - VotingRewardsFactory
     const votingRewardsFactoryArtifact = await deployer.loadArtifact("VotingRewardsFactory");
@@ -91,6 +124,17 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const votingRewardsFactorycontractAddress = votingRewardsFactory.address;
     console.log(`${votingRewardsFactoryArtifact.contractName} was deployed to ${votingRewardsFactorycontractAddress}`);
+      const votingRewardsFactorycontractFullyQualifedName ="contracts/factories/VotingRewardsFactory.sol:VotingRewardsFactory";
+    const votingRewardsFactoryverificationId = await hre.run("verify:verify", {
+      address: votingRewardsFactorycontractAddress,
+      contract: votingRewardsFactorycontractFullyQualifedName,
+      constructorArguments: [],
+      bytecode: votingRewardsFactoryArtifact.bytecode,
+    });
+    console.log(
+      `${votingRewardsFactorycontractFullyQualifedName} verified! VerificationId: ${votingRewardsFactoryverificationId}`, 
+    );
+
     //Deploying contract 5  -  GaugeFactory
     const gaugeFactoryArtifact = await deployer.loadArtifact("GaugeFactory");
     const gaugeFactoryDeploymentFee = await deployer.estimateDeployFee(gaugeFactoryArtifact, []);
@@ -102,6 +146,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const gaugeFactorycontractAddress = gaugeFactory.address;
     console.log(`${gaugeFactoryArtifact.contractName} was deployed to ${gaugeFactorycontractAddress}`);
+    const gaugeFactorycontractFullyQualifedName ="contracts/factories/GaugeFactory.sol:GaugeFactory";
+    const gaugeFactoryverificationId = await hre.run("verify:verify", {
+      address: gaugeFactorycontractAddress,
+      contract: gaugeFactorycontractFullyQualifedName,
+      constructorArguments: [],
+      bytecode: gaugeFactoryArtifact.bytecode,
+    });
+    console.log(
+      `${gaugeFactorycontractFullyQualifedName} verified! VerificationId: ${gaugeFactoryverificationId}`, 
+    );
     //Deploying contract 6  - ManagedRewardsFactory
     const managedRewardsFactoryArtifact = await deployer.loadArtifact("ManagedRewardsFactory");
     const managedRewardsFactoryDeploymentFee = await deployer.estimateDeployFee(managedRewardsFactoryArtifact, []);
@@ -113,6 +167,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const managedRewardsFactorycontractAddress = managedRewardsFactory.address;
     console.log(`${managedRewardsFactoryArtifact.contractName} was deployed to ${managedRewardsFactorycontractAddress}`);
+    const managedRewardsFactorycontractFullyQualifedName ="contracts/factories/ManagedRewardsFactory.sol:ManagedRewardsFactory";
+    const managedRewardsFactoryverificationId = await hre.run("verify:verify", {
+      address: managedRewardsFactorycontractAddress,
+      contract: managedRewardsFactorycontractFullyQualifedName,
+      constructorArguments: [],
+      bytecode: managedRewardsFactoryArtifact.bytecode,
+    });
+    console.log(
+      `${managedRewardsFactorycontractFullyQualifedName} verified! VerificationId: ${managedRewardsFactoryverificationId}`, 
+    );
     //Deploying contract 7  - FactoryRegistry
     const factoryRegistryArtifact = await deployer.loadArtifact("FactoryRegistry");
     const factoryRegistryDeploymentFee = await deployer.estimateDeployFee(factoryRegistryArtifact, [poolFactorycontractAddress, votingRewardsFactorycontractAddress, gaugeFactorycontractAddress, managedRewardsFactorycontractAddress]);
@@ -124,6 +188,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const factoryRegistrycontractAddress = factoryRegistry.address;
     console.log(`${factoryRegistryArtifact.contractName} was deployed to ${factoryRegistrycontractAddress}`);
+    const factoryRegistrycontractFullyQualifedName ="contracts/factories/FactoryRegistry.sol:FactoryRegistry";
+    const factoryRegistryverificationId = await hre.run("verify:verify", {
+      address: factoryRegistrycontractAddress,
+      contract: factoryRegistrycontractFullyQualifedName,
+      constructorArguments: [poolFactorycontractAddress, votingRewardsFactorycontractAddress, gaugeFactorycontractAddress, managedRewardsFactorycontractAddress],
+      bytecode: factoryRegistryArtifact.bytecode,
+    });
+    console.log(
+      `${factoryRegistrycontractFullyQualifedName} verified! VerificationId: ${factoryRegistryverificationId}`, 
+    );
     //Deploying contract 8  - VeloForwarder
     const veloForwarderArtifact = await deployer.loadArtifact("VeloForwarder");
     const veloForwarderDeploymentFee = await deployer.estimateDeployFee(veloForwarderArtifact, []);
@@ -135,6 +209,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const veloForwardercontractAddress = veloForwarder.address;
     console.log(`${veloForwarderArtifact.contractName} was deployed to ${veloForwardercontractAddress}`);
+    const veloForwardercontractFullyQualifedName ="contracts/VeloForwarder.sol:VeloForwarder";
+    const veloForwarderverificationId = await hre.run("verify:verify", {
+      address: veloForwardercontractAddress,
+      contract: veloForwardercontractFullyQualifedName,
+      constructorArguments: [],
+      bytecode: veloForwarderArtifact.bytecode,
+    });
+    console.log(
+      `${veloForwardercontractFullyQualifedName} verified! VerificationId: ${veloForwarderverificationId}`, 
+    );
     
     //Deploying Libraries - BalanceLogicLibrary , DelegationLogicLibrary
     // const balanceLogicLibraryArtifact = await deployer.loadArtifact("BalanceLogicLibrary");
@@ -172,6 +256,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const votingEscrowcontractAddress = votingEscrow.address;
     console.log(`${votingEscrowArtifact.contractName} was deployed to ${votingEscrowcontractAddress}`);
+    const votingEscrowcontractFullyQualifedName ="contracts/VotingEscrow.sol:VotingEscrow";
+    const votingEscrowverificationId = await hre.run("verify:verify", {
+      address: votingEscrowcontractAddress,
+      contract: votingEscrowcontractFullyQualifedName,
+      constructorArguments: [veloForwardercontractAddress, VELO.address, factoryRegistrycontractAddress],
+      bytecode: votingEscrowArtifact.bytecode,
+    });
+    console.log(
+      `${votingEscrowcontractFullyQualifedName} verified! VerificationId: ${votingEscrowverificationId}`, 
+    );
     //Deploying contract 10 - VeArtProxy
     const veArtProxyArtifact = await deployer.loadArtifact("VeArtProxy");
     const veArtProxyDeploymentFee = await deployer.estimateDeployFee(veArtProxyArtifact, [votingEscrowcontractAddress]);
@@ -185,6 +279,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     console.log(`${veArtProxyArtifact.contractName} was deployed to ${veArtProxycontractAddress}`);
     //SetArtproxy - tx function call   await escrow.setArtProxy(artProxy.address);
     await votingEscrow.setArtProxy(veArtProxy.address);
+    const veArtProxycontractFullyQualifedName ="contracts/VeArtProxy.sol:VeArtProxy";
+    const veArtProxyverificationId = await hre.run("verify:verify", {
+      address: veArtProxycontractAddress,
+      contract: veArtProxycontractFullyQualifedName,
+      constructorArguments: [votingEscrowcontractAddress],
+      bytecode: veArtProxyArtifact.bytecode,
+    });
+    console.log(
+      `${veArtProxycontractFullyQualifedName} verified! VerificationId: ${veArtProxyverificationId}`, 
+    );
 
     //Deploy contract 11 - RewardsDistributor
     const rewardsDistributorArtifact = await deployer.loadArtifact("RewardsDistributor");
@@ -197,6 +301,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const rewardsDistributorcontractAddress = rewardsDistributor.address;
     console.log(`${rewardsDistributorArtifact.contractName} was deployed to ${rewardsDistributorcontractAddress}`);
+    const rewardsDistributorcontractFullyQualifedName ="contracts/RewardsDistributor.sol:RewardsDistributor";
+    const rewardsDistributorverificationId = await hre.run("verify:verify", {
+      address: rewardsDistributorcontractAddress,
+      contract: rewardsDistributorcontractFullyQualifedName,
+      constructorArguments: [votingEscrowcontractAddress],
+      bytecode: rewardsDistributorArtifact.bytecode,
+    });
+    console.log(
+      `${rewardsDistributorcontractFullyQualifedName} verified! VerificationId: ${rewardsDistributorverificationId}`, 
+    );
 
     //Deploy contract 12 - Voter
     const voterArtifact = await deployer.loadArtifact("Voter");
@@ -209,10 +323,21 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const votercontractAddress = voter.address;
     console.log(`${voterArtifact.contractName} was deployed to ${votercontractAddress}`);
+  
+    const votercontractFullyQualifedName ="contracts/Voter.sol:Voter";
+    const voterverificationId = await hre.run("verify:verify", {
+      address: votercontractAddress,
+      contract: votercontractFullyQualifedName,
+      constructorArguments: [veloForwardercontractAddress, votingEscrowcontractAddress, factoryRegistrycontractAddress,"0x25CbdDb98b35ab1FF77413456B31EC81A6B6B746"],
+      bytecode: voterArtifact.bytecode,
+    });
+    console.log(
+      `${votercontractFullyQualifedName} verified! VerificationId: ${voterverificationId}`, 
+    );
 
-    // await escrow.setVoterAndDistributor(voter.address, distributor.address);
 
     await votingEscrow.setVoterAndDistributor(voter.address, rewardsDistributor.address);
+
 
  
     //Deploy contract 13 - Router
@@ -226,6 +351,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     );
     const routercontractAddress = router.address;
     console.log(`${routerArtifact.contractName} was deployed to ${routercontractAddress}`);
+    const routercontractFullyQualifedName ="contracts/Router.sol:Router";
+    const routerverificationId = await hre.run("verify:verify", {
+      address: routercontractAddress,
+      contract: routercontractFullyQualifedName,
+      constructorArguments: [veloForwardercontractAddress, factoryRegistrycontractAddress, "0x25CbdDb98b35ab1FF77413456B31EC81A6B6B746", poolFactorycontractAddress, votercontractAddress, jsonConstants.WETH],
+      bytecode: routerArtifact.bytecode,
+    });
+    console.log(
+      `${routercontractFullyQualifedName} verified! VerificationId: ${routerverificationId}`, 
+    );
 
     //Deploy contract 14 - Minter
     const minterArtifact = await deployer.loadArtifact("Minter");
@@ -241,6 +376,16 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     await rewardsDistributor.setMinter(minter.address);
     await VELO.setMinter(minter.address);
     await voter.initialize(jsonConstants.whitelistTokens, minter.address);
+    const mintercontractFullyQualifedName ="contracts/Minter.sol:Minter";
+    const minterverificationId = await hre.run("verify:verify", {
+      address: mintercontractAddress,
+      contract: mintercontractFullyQualifedName,
+      constructorArguments: [votercontractAddress, votingEscrowcontractAddress, rewardsDistributorcontractAddress],
+      bytecode: minterArtifact.bytecode,
+    });
+    console.log(
+      `${mintercontractFullyQualifedName} verified! VerificationId: ${minterverificationId}`, 
+    );
     
 
     // ****************  Pool Factory does setSinkConverter function call - need to understand why 
@@ -274,6 +419,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
         voter: voter.address,
         votingEscrow: votingEscrow.address,
         votingRewardsFactory: votingRewardsFactory.address,
+        pool: pool.address
 
 
       };

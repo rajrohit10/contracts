@@ -67,4 +67,15 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   // console.log(
   //   `${contractFullyQualifedName} verified! VerificationId: ${verificationId}`,
   // );
+  const contractFullyQualifedName =
+  "contracts/v1/sink/SinkDrain.sol:SinkDrain";
+const verificationId = await hre.run("verify:verify", {
+  address: contractAddress,
+  contract: contractFullyQualifedName,
+  constructorArguments: [],
+  bytecode: artifact.bytecode,
+});
+console.log(
+  `${contractFullyQualifedName} verified! VerificationId: ${verificationId}`,
+);
 }

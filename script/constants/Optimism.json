@@ -1,16 +1,23 @@
 {
-    "feeManager": "0xBA4BB89f4d1E66AA86B60696534892aE0cCf91F5",
-    "emergencyCouncil": "0x838352F4E3992187a33a04826273dB3992Ee2b3f",
-    "team": "0xBA4BB89f4d1E66AA86B60696534892aE0cCf91F5",
-    "WETH": "0x4200000000000000000000000000000000000006",
+    "feeManager": "0xE129236aAf50E8890a3eaad082FF37232bAB37b2",
+    "emergencyCouncil": "0x6085094F3E8a3066a7f7137a4A81744A9203e9D0",
+    "team": "0xE129236aAf50E8890a3eaad082FF37232bAB37b2",
+    "WETH": "0x000000000000000000000000000000000000800A",
     "whitelistTokens": [
+        "0x000000000000000000000000000000000000800A"
 
     ],
     "poolsV2": [
         {
             "stable": true,
-            "tokenA": "0x3E29D3A9316dAB217754d13b28646B76607c5f04",
-            "tokenB": "0x6806411765Af15Bddd26f8f544A34cC40cb9838B"
+            "tokenA": "0x000000000000000000000000000000000000800A",
+            "tokenB": "0xe1134444211593Cfda9fc9eCc7B43208615556E2"
+        }
+    ],
+    "poolsVeloV2": [
+        {
+            "stable": false,
+            "token": "0x0000000000000000000000000000000000000000"
         }
     ],
     "v1": {

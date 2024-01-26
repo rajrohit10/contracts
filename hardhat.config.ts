@@ -18,10 +18,12 @@ module.exports ={
             accounts: [`${process.env.PRIVATE_KEY_DEPLOY}`]
         },
         zksync: {
-            url: `https://testnet.era.zksync.dev`,
-            ethNetwork: "sepolia", // or a Goerli RPC endpoint from Infura/Alchemy/Chainstack etc.
+            url: `https://sepolia.era.zksync.dev`,
+            ethNetwork: "sepolia", 
             zksync: true,
-            accounts: [`${process.env.PRIVATE_KEY_DEPLOY}`]
+            accounts: [`${process.env.PRIVATE_KEY_DEPLOY}`],
+            verifyURL: 'https://explorer.sepolia.era.zksync.dev/contract_verification'
+
         }
     },
     solidity: {
