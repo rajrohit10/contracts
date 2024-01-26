@@ -38,30 +38,30 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 // Deploy non-VELO pools and gauges
   for (var i = 0; i < jsonConstants.poolsV2.length; i++) {
     const { stable, tokenA, tokenB } = jsonConstants.poolsV2[i];
-    await poolFactory.createPair(tokenA, tokenB, stable, { gasLimit: 5000000 });
+    await poolFactory.createPair(tokenA, tokenB, stable, { gasLimit: 500000000 });
     let pool = await poolFactory.getPair(tokenA, tokenB, stable, {
-      gasLimit: 5000000,
+      gasLimit: 500000000,
     });
     console.log("pool",pool);
-    await voter.createGauge(
-      deployedContracts.poolFactory,
-      pool,
-      { gasLimit: 5000000 }
-    );
+    // await voter.createGauge(
+    //   deployedContracts.poolFactory,
+    //   pool,
+    //   { gasLimit: 5000000 }
+    // );
   }
-  for (var i = 0; i < jsonConstants.poolsVeloV2.length; i++) {
-    const { stable, tokenA, tokenB } = jsonConstants.poolsV2[i];
-    await poolFactory.createPair(tokenA, tokenB, stable, { gasLimit: 5000000 });
-    let pool = await poolFactory.getPair(tokenA, tokenB, stable, {
-      gasLimit: 5000000,
-    });
-    console.log("pool",pool);
-    await voter.createGauge(
-      deployedContracts.poolFactory,
-      pool,
-      { gasLimit: 5000000 }
-    );
-  }
+//   for (var i = 0; i < jsonConstants.poolsVeloV2.length; i++) {
+//     const { stable, tokenA, tokenB } = jsonConstants.poolsV2[i];
+//     await poolFactory.createPair(tokenA, tokenB, stable, { gasLimit: 5000000 });
+//     let pool = await poolFactory.getPair(tokenA, tokenB, stable, {
+//       gasLimit: 5000000,
+//     });
+//     console.log("pool",pool);
+//     await voter.createGauge(
+//       deployedContracts.poolFactory,
+//       pool,
+//       { gasLimit: 5000000 }
+//     );
+//   }
 
 
 
