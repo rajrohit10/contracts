@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
-
+pragma solidity ^0.8.19 || 0.8.20;
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IPool} from "./interfaces/IPool.sol";
 import {IPoolFactory} from "./interfaces/factories/IPoolFactory.sol";
@@ -534,9 +533,9 @@ contract Router is IRouter, ERC2771Context {
         if (stake) {
             liquidity = IPool(pool).mint(address(this));
             address gauge = IVoter(voter).gauges(pool);
-            IERC20(pool).safeApprove(address(gauge), liquidity);
+            IERC20(pool).approve(address(gauge), liquidity);
             IGauge(gauge).deposit(liquidity, to);
-            IERC20(pool).safeApprove(address(gauge), 0);
+            IERC20(pool).approve(address(gauge), 0);
         } else {
             liquidity = IPool(pool).mint(to);
         }

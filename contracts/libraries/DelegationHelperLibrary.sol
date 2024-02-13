@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
-
+pragma solidity ^0.8.19 || 0.8.20;
 import {IVotingEscrow} from "../interfaces/IVotingEscrow.sol";
 import {IReward} from "contracts/interfaces/IReward.sol";
 import {VelodromeTimeLibrary} from "contracts/libraries/VelodromeTimeLibrary.sol";

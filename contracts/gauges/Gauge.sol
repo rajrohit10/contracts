@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
-
+pragma solidity ^0.8.19 || 0.8.20;
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IReward} from "../interfaces/IReward.sol";
 import {IGauge} from "../interfaces/IGauge.sol";
@@ -10,7 +9,7 @@ import {IVotingEscrow} from "../interfaces/IVotingEscrow.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {ERC2771Context} from "@openzeppelin/contracts/metatx/ERC2771Context.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {VelodromeTimeLibrary} from "../libraries/VelodromeTimeLibrary.sol";
 
 /// @title Velodrome V2 Gauge
@@ -86,14 +85,14 @@ contract Gauge is IGauge, ERC2771Context, ReentrancyGuard {
             (address _token0, address _token1) = IPool(stakingToken).tokens();
             if (_fees0 > DURATION) {
                 fees0 = 0;
-                IERC20(_token0).safeApprove(feesVotingReward, _fees0);
+                IERC20(_token0).approve(feesVotingReward, _fees0);
                 IReward(feesVotingReward).notifyRewardAmount(_token0, _fees0);
             } else {
                 fees0 = _fees0;
             }
             if (_fees1 > DURATION) {
                 fees1 = 0;
-                IERC20(_token1).safeApprove(feesVotingReward, _fees1);
+                IERC20(_token1).approve(feesVotingReward, _fees1);
                 IReward(feesVotingReward).notifyRewardAmount(_token1, _fees1);
             } else {
                 fees1 = _fees1;

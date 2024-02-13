@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.19;
-
+pragma solidity ^0.8.19 || 0.8.20;
 import {IVotingRewardsFactory} from "../interfaces/factories/IVotingRewardsFactory.sol";
 import {FeesVotingReward} from "../rewards/FeesVotingReward.sol";
 import {BribeVotingReward} from "../rewards/BribeVotingReward.sol";

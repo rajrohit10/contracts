@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-pragma solidity 0.8.19;
-
+pragma solidity ^0.8.19 || 0.8.20;
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IMinter} from "./interfaces/IMinter.sol";
 import {IRewardsDistributor} from "./interfaces/IRewardsDistributor.sol";
@@ -154,7 +153,7 @@ contract Minter is IMinter {
             velo.safeTransfer(address(rewardsDistributor), _growth);
             rewardsDistributor.checkpointToken(); // checkpoint token balance that was just minted in rewards distributor
 
-            velo.safeApprove(address(voter), _emission);
+            velo.approve(address(voter), _emission);
             voter.notifyRewardAmount(_emission);
 
             emit Mint(msg.sender, _emission, velo.totalSupply(), _tail);
