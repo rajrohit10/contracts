@@ -11,7 +11,7 @@ import {IReward} from "./interfaces/IReward.sol";
 import {IFactoryRegistry} from "./interfaces/factories/IFactoryRegistry.sol";
 import {IManagedRewardsFactory} from "./interfaces/factories/IManagedRewardsFactory.sol";
 import {ERC2771Context} from "@openzeppelin/contracts/metatx/ERC2771Context.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {DelegationLogicLibrary} from "./libraries/DelegationLogicLibrary.sol";
 import {BalanceLogicLibrary} from "./libraries/BalanceLogicLibrary.sol";
 import {SafeCastLibrary} from "./libraries/SafeCastLibrary.sol";
