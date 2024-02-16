@@ -35,13 +35,25 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
     const poolFactory= new Contract(deployedContracts.poolFactory, poolFactoryArtifact.abi, owner);
     const voter= new Contract(deployedContracts.voter, voterArtifact.abi, owner);
+    //whitelisting tokens:
+    // const whitelistedTokens = jsonConstants.whitelistTokens;
+    // for (var i = 0; i < whitelistedTokens.length; i++) {
+    //   await voter.whitelistToken(whitelistedTokens[i], { gasLimit: 50000000 });
+    // }
+
+
 // Deploy non-VELO pools and gauges
   for (var i = 0; i < jsonConstants.poolsV2.length; i++) {
     const { stable, tokenA, tokenB } = jsonConstants.poolsV2[i];
-    await poolFactory.functions["createPool(address,address,bool)"](
+    //if stable is true , then make stable 1 else make it 0
+    let stable1 = 0;
+    if(stable){
+      stable1 = 1;
+    }
+    await poolFactory.functions["createPool(address,address,uint24)"](
       tokenA,
       tokenB,
-      stable,
+      stable1,
       { gasLimit: 5000000 }
     );
     let pool = await poolFactory.functions["getPool(address,address,bool)"](
@@ -52,6 +64,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
         gasLimit: 5000000,
       }
     );
+    console.log("pool",pool);
     await voter.createGauge(
       deployedContracts.poolFactory, // PoolFactory (v2)
       pool[0],

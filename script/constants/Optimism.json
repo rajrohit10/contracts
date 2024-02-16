@@ -27,7 +27,7 @@
     ],
     "poolsVeloV2": [
         {
-            "stable": true,
+            "stable": false,
             "tokenB": "0x000000000000000000000000000000000000800A"
         }
     ],
