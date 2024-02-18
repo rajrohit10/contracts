@@ -9,6 +9,3 @@ deploy-sepolia-gauges:
 	
 
 
-deploy-zksync:
-	forge script script/DeploySinkDrain.s.sol:DeploySinkDrain --rpc-url $(ZKSYNC_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast  -vvvvv
-	
