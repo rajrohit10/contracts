@@ -7,6 +7,7 @@ interface IPoolFactory {
     event SetPauseState(bool state);
     event SetVoter(address voter);
     event PoolCreated(address indexed token0, address indexed token1, bool indexed stable, address pool, uint256);
+    event PoolStarted(address indexed tokenA, address indexed tokenB, bool indexed stable);
     event SetCustomFee(address indexed pool, uint256 fee);
 
     error FeeInvalid();

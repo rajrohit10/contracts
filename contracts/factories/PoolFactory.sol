@@ -124,6 +124,7 @@ contract PoolFactory is IPoolFactory {
 
     /// @inheritdoc IPoolFactory
     function createPool(address tokenA, address tokenB, bool stable) public returns (address pool) {
+        emit PoolStarted(tokenA, tokenB, stable);
         if (tokenA == tokenB) revert SameAddress();
         (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
         if (token0 == address(0)) revert ZeroAddress();

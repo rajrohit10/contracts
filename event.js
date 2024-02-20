@@ -1,23 +1,32 @@
 import * as ethers from "ethers";
-const contractABI = require("./ABI_JSON");
+const contractABI = require("./artifacts-zk/contracts/factories/PoolFactory.sol/PoolFactory.json");
 
 const listenEvents = async () => {
-  const contractAddress = "0x63fDdBc2501735B7A9A525803E145B5b2BB61984";
+  const contractAddress = "0x4626656B02521208BAD263c8232d2EbE20C7B050";
   const provider = new ethers.providers.WebSocketProvider(`wss://sepolia.era.zksync.dev/ws`);
 
   const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
-  // starts listening to Transfer events on contract
+  // Subscribe to PoolCreated events
   contract.on("PoolCreated", (event) => {
-    // optional filter parameters
-    let options = {
-      filter: { INDEXED_PARAMETER: VALUE }, // e.g { from: '0x48c6c0923b514db081782271355e5745c49wd60' }
-      fromBlock: START_BLOCK_NUMBER, // e.g 15943000
-      toBlock: END_BLOCK_NUMBER, // e.g 15943100
-      data: event,
-    };
-    console.log(JSON.stringify(options, null, 4));
+    console.log("PoolCreated event:", event);
   });
+
+  // Handle errors
+  contract.on("error", (error) => {
+    console.error("Error:", error);
+  });
+
+  console.log("Listening for PoolCreated events...");
+
+  // You may want to add a delay between event checks to avoid overwhelming the node
+  // Adjust the delay time according to your needs
+  const delay = 5000; // Delay in milliseconds (5 seconds in this example)
+
+  // Run indefinitely to continuously listen for events
+  while (true) {
+    await new Promise(resolve => setTimeout(resolve, delay)); // Wait for the specified delay
+  }
 };
 
 listenEvents();
