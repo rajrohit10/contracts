@@ -2,6 +2,7 @@
 pragma solidity ^0.8.19 || 0.8.20;
 import {IPoolFactory} from "../interfaces/factories/IPoolFactory.sol";
 import {IPool} from "../interfaces/IPool.sol";
+import {Pool} from "../Pool.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
 contract PoolFactory is IPoolFactory {
@@ -130,7 +131,8 @@ contract PoolFactory is IPoolFactory {
         if (token0 == address(0)) revert ZeroAddress();
         if (_getPool[token0][token1][stable] != address(0)) revert PoolAlreadyExists();
         bytes32 salt = keccak256(abi.encodePacked(token0, token1, stable)); // salt includes stable as well, 3 parameters
-        pool = Clones.cloneDeterministic(implementation, salt);
+        // pool = Clones.cloneDeterministic(implementation, salt);
+        pool = address(new Pool{salt: salt}());
         IPool(pool).initialize(token0, token1, stable);
         _getPool[token0][token1][stable] = pool;
         _getPool[token1][token0][stable] = pool; // populate mapping in the reverse direction
@@ -138,4 +140,5 @@ contract PoolFactory is IPoolFactory {
         _isPool[pool] = true;
         emit PoolCreated(token0, token1, stable, pool, allPools.length);
     }
+    
 }

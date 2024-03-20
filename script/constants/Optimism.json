@@ -23,12 +23,21 @@
             "stable": true,
             "tokenA": "0x895F38ACAAc1e3c89A27C2623368c91d17773b10",
             "tokenB": "0x81A41be9FC87fa00c8855E4331FC39f7eB743875"
+        },{
+            "stable": false,
+            "tokenA": "0x9bc06305D648335c6cC28Da786D79c6FDA0b12aD",
+            "tokenB": "0x81A41be9FC87fa00c8855E4331FC39f7eB743875"
+
         }
     ],
     "poolsVeloV2": [
         {
             "stable": false,
             "tokenB": "0x000000000000000000000000000000000000800A"
+        },
+        {
+            "stable": false,
+            "token":"0x81A41be9FC87fa00c8855E4331FC39f7eB743875"
         }
     ],
     "v1": {

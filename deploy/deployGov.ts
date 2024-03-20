@@ -55,6 +55,6 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     console.log("verificationId2",verificationId2);
 
 
-
+//Pending interaction
 
 }

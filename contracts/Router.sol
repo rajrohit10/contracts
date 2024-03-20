@@ -13,6 +13,7 @@ import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IER
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {ERC2771Context} from "@openzeppelin/contracts/metatx/ERC2771Context.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
+import {Pool} from "./Pool.sol";
 
 /// @title Velodrome V2 Router
 /// @author velodrome.finance, @pegahcarter
@@ -73,7 +74,9 @@ contract Router is IRouter, ERC2771Context {
 
         (address token0, address token1) = sortTokens(tokenA, tokenB);
         bytes32 salt = keccak256(abi.encodePacked(token0, token1, stable));
-        pool = Clones.predictDeterministicAddress(IPoolFactory(factory).implementation(), salt, factory);
+        // pool = Clones.predictDeterministicAddress(IPoolFactory(factory).implementation(), salt, factory);
+        pool = address(new Pool{salt: salt}());
+
     }
 
     /// @dev given some amount of an asset and pool reserves, returns an equivalent amount of the other asset

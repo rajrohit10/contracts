@@ -9593,8 +9593,8 @@
       ]
     },
     "/Users/rohitprasad/Desktop/Eth-Projects/velo-updated_feb24/contracts/factories/PoolFactory.sol": {
-      "lastModificationDate": 1708417659219,
-      "contentHash": "f61def0918a4503db37d1287a1eb21a0",
+      "lastModificationDate": 1710278935031,
+      "contentHash": "a6b21fd94f0ccda7d8b7b6a4491aec3c",
       "sourceName": "contracts/factories/PoolFactory.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -9686,6 +9686,7 @@
       "imports": [
         "../interfaces/factories/IPoolFactory.sol",
         "../interfaces/IPool.sol",
+        "../Pool.sol",
         "@openzeppelin/contracts/proxy/Clones.sol"
       ],
       "versionPragmas": [

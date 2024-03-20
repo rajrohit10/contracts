@@ -64,26 +64,50 @@ export default async function (hre: HardhatRuntimeEnvironment) {
         gasLimit: 5000000,
       }
     );
-    console.log("pool",pool);
-    await voter.createGauge(
+    console.log("pool non Velo  ",pool);
+    let gauge= await voter.functions["createGauge(address,address)"](
       deployedContracts.poolFactory, // PoolFactory (v2)
       pool[0],
       { gasLimit: 5000000 }
     );
+
+    // await voter.createGauge(
+    //   deployedContracts.poolFactory, // PoolFactory (v2)
+    //   pool[0],
+    //   { gasLimit: 5000000 }
+    // );
+    // console.log("gauge",gauge);
   }
-//   for (var i = 0; i < jsonConstants.poolsVeloV2.length; i++) {
-//     const { stable, tokenA, tokenB } = jsonConstants.poolsV2[i];
-//     await poolFactory.createPair(tokenA, tokenB, stable, { gasLimit: 5000000 });
-//     let pool = await poolFactory.getPair(tokenA, tokenB, stable, {
-//       gasLimit: 5000000,
-//     });
-//     console.log("pool",pool);
-//     await voter.createGauge(
-//       deployedContracts.poolFactory,
-//       pool,
-//       { gasLimit: 5000000 }
-//     );
-//   }
+
+  // Deploy VELO pools and gauges
+  for (var i = 0; i < jsonConstants.poolsVeloV2.length; i++) {
+    const [stable, token] = Object.values(jsonConstants.poolsVeloV2[i]);
+    await poolFactory.functions["createPool(address,address,bool)"](
+      deployedContracts.VELO,
+      token,
+      stable,
+      {
+        gasLimit: 5000000,
+      }
+    );
+    let pool = await poolFactory.functions["getPool(address,address,bool)"](
+      deployedContracts.VELO,
+      token,
+      stable,
+      {
+        gasLimit: 5000000,
+      }
+    );
+    console.log("pool   ",pool);
+
+    let gauge= await voter.functions["createGauge(address,address)"](
+      deployedContracts.poolFactory, // PoolFactory (v2)
+      pool[0],
+      { gasLimit: 5000000, }
+    );
+
+  }
+
 
 
 
