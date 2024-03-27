@@ -26,6 +26,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
 
 
+
   // Initialize the wallet.
   const wallet = new Wallet(PRIVATE_KEY);
   const owner = new Wallet(PRIVATE_KEY, provider);
@@ -61,29 +62,30 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     console.log(stable,tokenA,tokenB)
 
     // Calling quote add liquidity function
-    // let quoteAddLiquidity= await router.functions["quoteAddLiquidity(address,address,bool,address,uint256,uint256)"](
+    // const  {amountA,  amountB,  liquidity}= await router.functions["quoteAddLiquidity(address,address,bool,address,uint256,uint256)"](
     //   tokenA,
     //   tokenB,
     //   stable,
     //   deployedContracts.poolFactory,
-    //   100,
-    //   250,
+    //   ethers.utils.parseUnits("1", 18),
+    //   ethers.utils.parseUnits("1", 18),
     //   { gasLimit: 5000000 }
 
     // )
-    // const  {amountA,  amountB,  liquidity}= quoteAddLiquidity;
+    // // const  {amountA,  amountB,  liquidity}= quoteAddLiquidity;
     // console.log("amountA,  amountB,  liquidity,",amountA,  amountB,  liquidity)
+    // const currentTimestamp = await ethers.providers.getNet
 
     let addLiquidity= await router.functions["addLiquidity(address,address,bool,uint256,uint256,uint256,uint256,address,uint256)"](
       tokenA,
       tokenB,
       stable,
-      1000,
-      2000,
-      100,
-      200,
+      ethers.utils.parseUnits("5", 23),
+      ethers.utils.parseUnits("8", 20),
+      0,
+      0,
       owner.address,
-      1289464+5,
+      5678976545,
       { gasLimit: 5000000 }
 
 
